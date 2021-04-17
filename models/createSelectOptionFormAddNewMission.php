@@ -5,7 +5,7 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $bdd->query('SELECT * FROM liste_pays');
+$reponse = $bdd->query('SELECT * FROM liste_pays ORDER BY designationPays');
 
 $arrayResult = [];
 while ($donnees = $reponse->fetch()) {
@@ -22,7 +22,7 @@ for ($i = 0; $i < count($arrayResult); $i++) {
     array_push($arrayDesignationPays, $designationPays);
 }
 
-$reponse = $bdd->query('SELECT * FROM liste_agents');
+$reponse = $bdd->query('SELECT * FROM liste_agents ORDER BY prenomAgent');
 
 $arrayResult = [];
 while ($donnees = $reponse->fetch()) {
@@ -41,7 +41,7 @@ for ($i = 0; $i < count($arrayResult); $i++) {
     array_push($arrayNameAgent, $completeNameAgent);
 }
 
-$reponse = $bdd->query('SELECT * FROM liste_contacts');
+$reponse = $bdd->query('SELECT * FROM liste_contacts ORDER BY prenomContact');
 
 $arrayResult = [];
 while ($donnees = $reponse->fetch()) {
@@ -60,7 +60,7 @@ for ($i = 0; $i < count($arrayResult); $i++) {
     array_push($arrayNameContact, $completeNameContact);
 }
 
-$reponse = $bdd->query('SELECT * FROM liste_cibles');
+$reponse = $bdd->query('SELECT * FROM liste_cibles ORDER BY prenomCible');
 
 $arrayResult = [];
 while ($donnees = $reponse->fetch()) {
@@ -79,7 +79,7 @@ for ($i = 0; $i < count($arrayResult); $i++) {
     array_push($arrayNameCible, $completeNameCible);
 }
 
-$reponse = $bdd->query('SELECT * FROM types_missions');
+$reponse = $bdd->query('SELECT * FROM types_missions ORDER BY designationTypeMission');
 
 $arrayResult = [];
 while ($donnees = $reponse->fetch()) {
@@ -113,7 +113,7 @@ for ($i = 0; $i < count($arrayResult); $i++) {
     array_push($arrayDesignationStatutMission, $designationStatutMission);
 }
 
-$reponse = $bdd->query('SELECT * FROM liste_planques');
+$reponse = $bdd->query('SELECT * FROM liste_planques ORDER BY adressePlanque');
 
 $arrayResult = [];
 while ($donnees = $reponse->fetch()) {
@@ -124,13 +124,19 @@ $arrayIdPlanque = [];
 $arrayAdressePlanque = [];
 for ($i = 0; $i < count($arrayResult); $i++) {
     $idPlanque = $arrayResult[$i][0];
+    $codePlanque = $arrayResult[$i][1];
     $adressePlanque = $arrayResult[$i][2];
+    $idPays = $arrayResult[$i][3];
+    $newreponse = $bdd->query('SELECT designationPays FROM liste_pays WHERE idPays = ' . $idPays);
+    $newdata = $newreponse->fetch();
+    $paysPlanque = $newdata[0];
+    $completeAdressePlanque = $codePlanque . " : " . $paysPlanque . " - " . $adressePlanque;
 
     array_push($arrayIdPlanque, $idPlanque);
-    array_push($arrayAdressePlanque, $adressePlanque);
+    array_push($arrayAdressePlanque, $completeAdressePlanque);
 }
 
-$reponse = $bdd->query('SELECT * FROM liste_specialites_mission');
+$reponse = $bdd->query('SELECT * FROM liste_specialites_mission ORDER BY designationSpecialiteMission');
 
 $arrayResult = [];
 while ($donnees = $reponse->fetch()) {

@@ -27,26 +27,77 @@ for ($i = 0; $i < count($arrayResult); $i++) {
 
     $reponse->closeCursor();
 
+    $agentsMission = "";
     $idAgentsMission = $arrayResult[$i][5];
-    $reponse = $bdd->query('SELECT nomAgent, prenomAgent FROM liste_agents WHERE idAgent = ' . $idAgentsMission);
-    $donnees = $reponse->fetch();
-    $agentsMission = $donnees[1] . " " . $donnees[0];
+    if (str_contains($idAgentsMission, ",")) {
+        $arrayIdAgentsMission = preg_split("*,*", $idAgentsMission);
+        for ($j = 0; $j < count($arrayIdAgentsMission); $j++) {
+            if ($j != (count($arrayIdAgentsMission) - 1)) {
+                $reponse = $bdd->query('SELECT nomAgent, prenomAgent FROM liste_agents WHERE idAgent = ' . $arrayIdAgentsMission[$j]);
+                $donnees = $reponse->fetch();
+                $agentsMission .= $donnees[1] . " " . $donnees[0] . ", ";
+                $reponse->closeCursor();
+            } else {
+                $reponse = $bdd->query('SELECT nomAgent, prenomAgent FROM liste_agents WHERE idAgent = ' . $arrayIdAgentsMission[$j]);
+                $donnees = $reponse->fetch();
+                $agentsMission .= $donnees[1] . " " . $donnees[0];
+                $reponse->closeCursor();
+            }
+        }
+    } else {
+        $reponse = $bdd->query('SELECT nomAgent, prenomAgent FROM liste_agents WHERE idAgent = ' . $idAgentsMission);
+        $donnees = $reponse->fetch();
+        $agentsMission = $donnees[1] . " " . $donnees[0];
+        $reponse->closeCursor();
+    }
 
-    $reponse->closeCursor();
-
+    $contactsMission = "";
     $idContactsMission = $arrayResult[$i][6];
-    $reponse = $bdd->query('SELECT nomContact, prenomContact FROM liste_contacts WHERE idContact = ' . $idContactsMission);
-    $donnees = $reponse->fetch();
-    $contactsMission = $donnees[1] . " " . $donnees[0];
+    if (str_contains($idContactsMission, ",")) {
+        $arrayIdContactsMission = preg_split("*,*", $idContactsMission);
+        for ($j = 0; $j < count($arrayIdContactsMission); $j++) {
+            if ($j != (count($arrayIdContactsMission) - 1)) {
+                $reponse = $bdd->query('SELECT nomContact, prenomContact FROM liste_contacts WHERE idContact = ' . $arrayIdContactsMission[$j]);
+                $donnees = $reponse->fetch();
+                $contactsMission .= $donnees[1] . " " . $donnees[0] . ", ";
+                $reponse->closeCursor();
+            } else {
+                $reponse = $bdd->query('SELECT nomContact, prenomContact FROM liste_contacts WHERE idContact = ' . $arrayIdContactsMission[$j]);
+                $donnees = $reponse->fetch();
+                $contactsMission .= $donnees[1] . " " . $donnees[0];
+                $reponse->closeCursor();
+            }
+        }
+    } else {
+        $reponse = $bdd->query('SELECT nomContact, prenomContact FROM liste_contacts WHERE idContact = ' . $idContactsMission);
+        $donnees = $reponse->fetch();
+        $contactsMission = $donnees[1] . " " . $donnees[0];
+        $reponse->closeCursor();
+    }
 
-    $reponse->closeCursor();
-
+    $ciblesMission = "";
     $idCiblesMission = $arrayResult[$i][7];
-    $reponse = $bdd->query('SELECT nomCible, prenomCible FROM liste_cibles WHERE idCible = ' . $idCiblesMission);
-    $donnees = $reponse->fetch();
-    $ciblesMission = $donnees[1] . " " . $donnees[0];
-
-    $reponse->closeCursor();
+    if (str_contains($idCiblesMission, ",")) {
+        $arrayIdCiblesMission = preg_split("*,*", $idCiblesMission);
+        for ($j = 0; $j < count($arrayIdCiblesMission); $j++) {
+            if ($j != (count($arrayIdCiblesMission) - 1)) {
+                $reponse = $bdd->query('SELECT nomCible, prenomCible FROM liste_cibles WHERE idCible = ' . $arrayIdCiblesMission[$j]);
+                $donnees = $reponse->fetch();
+                $ciblesMission .= $donnees[1] . " " . $donnees[0] . ", ";
+                $reponse->closeCursor();
+            } else {
+                $reponse = $bdd->query('SELECT nomCible, prenomCible FROM liste_cibles WHERE idCible = ' . $arrayIdCiblesMission[$j]);
+                $donnees = $reponse->fetch();
+                $ciblesMission .= $donnees[1] . " " . $donnees[0];
+                $reponse->closeCursor();
+            }
+        }
+    } else {
+        $reponse = $bdd->query('SELECT nomCible, prenomCible FROM liste_cibles WHERE idCible = ' . $idCiblesMission);
+        $donnees = $reponse->fetch();
+        $ciblesMission = $donnees[1] . " " . $donnees[0];
+        $reponse->closeCursor();
+    }
 
     $idTypeMission = $arrayResult[$i][8];
     $reponse = $bdd->query('SELECT designationTypeMission FROM types_missions WHERE idTypeMission = ' . $idTypeMission);
@@ -60,13 +111,38 @@ for ($i = 0; $i < count($arrayResult); $i++) {
     $statutMission = $donnees[0];
     $reponse->closeCursor();
 
-
+    $planquesMission = "";
     $idPlanquesMission = $arrayResult[$i][10];
-    $reponse = $bdd->query('SELECT codePlanque, adressePlanque FROM liste_planques WHERE idPlanque = ' . $idPlanquesMission);
-    $donnees = $reponse->fetch();
-    $planquesMission = $donnees[1] . " " . $donnees[0];
-
-    $reponse->closeCursor();
+    if (str_contains($idPlanquesMission, ",")) {
+        $arrayIdPlanquesMission = preg_split("*,*", $idPlanquesMission);
+        for ($j = 0; $j < count($arrayIdPlanquesMission); $j++) {
+            if ($j != (count($arrayIdPlanquesMission) - 1)) {
+                $reponse = $bdd->query('SELECT codePlanque, paysPlanque, adressePlanque FROM liste_planques WHERE idPlanque = ' . $arrayIdPlanquesMission[$j]);
+                $donnees = $reponse->fetch();
+                $newreponse = $bdd->query('SELECT designationPays FROM liste_pays WHERE idPays = ' . $donnees[1]);
+                $newdata = $newreponse->fetch();
+                $planquesMission .= $donnees[0] . " : " . $newdata[0] . " - " . $donnees[2] . ", ";
+                $reponse->closeCursor();
+                $newreponse->closeCursor();
+            } else {
+                $reponse = $bdd->query('SELECT codePlanque, paysPlanque, adressePlanque FROM liste_planques WHERE idPlanque = ' . $arrayIdPlanquesMission[$j]);
+                $donnees = $reponse->fetch();
+                $newreponse = $bdd->query('SELECT designationPays FROM liste_pays WHERE idPays = ' . $donnees[1]);
+                $newdata = $newreponse->fetch();
+                $planquesMission .= $donnees[0] . " : " . $newdata[0] . " - " . $donnees[2];
+                $reponse->closeCursor();
+                $newreponse->closeCursor();
+            }
+        }
+    } else {
+        $reponse = $bdd->query('SELECT codePlanque, paysPlanque, adressePlanque FROM liste_planques WHERE idPlanque = ' . $idPlanquesMission);
+        $donnees = $reponse->fetch();
+        $newreponse = $bdd->query('SELECT designationPays FROM liste_pays WHERE idPays = ' . $donnees[1]);
+        $newdata = $newreponse->fetch();
+        $planquesMission = $donnees[0] . " : " . $newdata[0] . " - " . $donnees[2];
+        $reponse->closeCursor();
+        $newreponse->closeCursor();
+    }
 
     $idSpecialiteRequisePourLaMission = $arrayResult[$i][11];
     $reponse = $bdd->query('SELECT designationSpecialiteMission FROM liste_specialites_mission WHERE idSpecialiteMission = ' . $idSpecialiteRequisePourLaMission);

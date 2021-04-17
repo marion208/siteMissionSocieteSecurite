@@ -1,4 +1,8 @@
 <?php
+$arrayIdContactsMission = $_SESSION['arrayIdContactsMission'];
+$arrayIdCiblesMission = $_SESSION['arrayIdCiblesMission'];
+$arrayIdAgentsMission = $_SESSION['arrayIdAgentsMission'];
+$arrayIdPlanquesMission = $_SESSION['arrayIdPlanquesMission'];
 $mission = $_SESSION['mission'];
 $arrayIdPays = $_SESSION['arrayIdPays'];
 $arrayDesignationPays = $_SESSION['arrayDesignationPays'];
@@ -38,34 +42,34 @@ $arrayDesignationSpecialite = $_SESSION['arrayDesignationSpecialite'];
                 ?>
             </select>
             <label for="agent">Agent :</label>
-            <select class="form-control" id="agent" name="agent">
+            <select class="form-control" multiple id="agent" name="agent[]">
                 <option value=""></option>
                 <?php
                 for ($i = 0; $i < count($arrayIdAgent); $i++) {
                 ?>
-                    <option value="<?php echo $arrayIdAgent[$i] ?>" <?php if ($arrayNameAgent[$i] == $mission->getAgentsMission()) { ?> selected<?php } ?>><?php echo $arrayNameAgent[$i] ?></option>
+                    <option value="<?php echo $arrayIdAgent[$i] ?>" <?php if (in_array($arrayIdAgent[$i], $arrayIdAgentsMission)) { ?> selected<?php } ?>><?php echo $arrayNameAgent[$i] ?></option>
                 <?php
                 }
                 ?>
             </select>
             <label for="contact">Contact :</label>
-            <select class="form-control" id="contact" name="contact">
+            <select class="form-control" multiple id="contact" name="contact[]">
                 <option value=""></option>
                 <?php
                 for ($i = 0; $i < count($arrayIdContact); $i++) {
                 ?>
-                    <option value="<?php echo $arrayIdContact[$i] ?>" <?php if ($arrayNameContact[$i] == $mission->getContactsMission()) { ?> selected<?php } ?>><?php echo $arrayNameContact[$i] ?></option>
+                    <option value="<?php echo $arrayIdContact[$i] ?>" <?php if (in_array($arrayIdContact[$i], $arrayIdContactsMission)) { ?> selected<?php } ?>><?php echo $arrayNameContact[$i] ?></option>
                 <?php
                 }
                 ?>
             </select>
             <label for="cible">Cible :</label>
-            <select class="form-control" id="cible" name="cible">
+            <select class="form-control" multiple id="cible" name="cible[]">
                 <option value=""></option>
                 <?php
                 for ($i = 0; $i < count($arrayIdCible); $i++) {
                 ?>
-                    <option value="<?php echo $arrayIdCible[$i] ?>" <?php if ($arrayNameCible[$i] == $mission->getCiblesMission()) { ?> selected<?php } ?>><?php echo $arrayNameCible[$i] ?></option>
+                    <option value="<?php echo $arrayIdCible[$i] ?>" <?php if (in_array($arrayIdCible[$i], $arrayIdCiblesMission)) { ?> selected<?php } ?>><?php echo $arrayNameCible[$i] ?></option>
                 <?php
                 }
                 ?>
@@ -93,12 +97,12 @@ $arrayDesignationSpecialite = $_SESSION['arrayDesignationSpecialite'];
                 ?>
             </select>
             <label for="planque">Planque :</label>
-            <select class="form-control" id="planque" name="planque">
+            <select class="form-control" multiple id="planque" name="planque[]">
                 <option value=""></option>
                 <?php
                 for ($i = 0; $i < count($arrayIdPlanque); $i++) {
                 ?>
-                    <option value="<?php echo $arrayIdPlanque[$i] ?>" <?php if ($arrayAdressePlanque[$i] == $mission->getPlanquesMission()) { ?> selected<?php } ?>><?php echo $arrayAdressePlanque[$i] ?></option>
+                    <option value="<?php echo $arrayIdPlanque[$i] ?>" <?php if (in_array($arrayIdPlanque[$i], $arrayIdPlanquesMission)) { ?> selected<?php } ?>><?php echo $arrayAdressePlanque[$i] ?></option>
                 <?php
                 }
                 ?>
@@ -138,6 +142,9 @@ $arrayDesignationSpecialite = $_SESSION['arrayDesignationSpecialite'];
         </div>
     <?php
     }
+    unset($_SESSION['arrayIdContactsMission']);
+    unset($_SESSION['arrayIdCiblesMission']);
+    unset($_SESSION['arrayIdAgentsMission']);
     unset($_SESSION['mission']);
     unset($_SESSION['arrayIdPays']);
     unset($_SESSION['arrayDesignationPays']);

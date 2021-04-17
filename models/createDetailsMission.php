@@ -24,6 +24,7 @@ $paysMission = $donnees[0];
 
 $reponse->closeCursor();
 
+$agentsMission = "";
 $idAgentsMission = $data[5];
 $listeIdAgentsMission = explode(",", $idAgentsMission);
 if (count($listeIdAgentsMission) == 1) {

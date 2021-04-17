@@ -5,7 +5,7 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $bdd->query('SELECT * FROM liste_pays');
+$reponse = $bdd->query('SELECT * FROM liste_pays ORDER BY designationPays');
 
 $arrayResult = [];
 while ($donnees = $reponse->fetch()) {
@@ -22,7 +22,7 @@ for ($i = 0; $i < count($arrayResult); $i++) {
     array_push($arrayDesignationPays, $designationPays);
 }
 
-$reponse = $bdd->query('SELECT * FROM liste_type_planques');
+$reponse = $bdd->query('SELECT * FROM liste_type_planques ORDER BY designationTypePlanque');
 
 $arrayResult = [];
 while ($donnees = $reponse->fetch()) {

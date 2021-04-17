@@ -37,7 +37,7 @@ $arrayDesignationSpecialite = $_SESSION['arrayDesignationSpecialite'];
                 ?>
             </select>
             <label for="agent">Agent :</label>
-            <select class="form-control" id="agent" name="agent">
+            <select class="form-control" multiple id="agent" name="agent[]">
                 <option value=""></option>
                 <?php
                 for ($i = 0; $i < count($arrayIdAgent); $i++) {
@@ -48,7 +48,7 @@ $arrayDesignationSpecialite = $_SESSION['arrayDesignationSpecialite'];
                 ?>
             </select>
             <label for="contact">Contact :</label>
-            <select class="form-control" id="contact" name="contact">
+            <select class="form-control" multiple id="contact" name="contact[]">
                 <option value=""></option>
                 <?php
                 for ($i = 0; $i < count($arrayIdContact); $i++) {
@@ -59,7 +59,7 @@ $arrayDesignationSpecialite = $_SESSION['arrayDesignationSpecialite'];
                 ?>
             </select>
             <label for="cible">Cible :</label>
-            <select class="form-control" id="cible" name="cible">
+            <select class="form-control" multiple id="cible" name="cible[]">
                 <option value=""></option>
                 <?php
                 for ($i = 0; $i < count($arrayIdCible); $i++) {
@@ -92,7 +92,7 @@ $arrayDesignationSpecialite = $_SESSION['arrayDesignationSpecialite'];
                 ?>
             </select>
             <label for="planque">Planque :</label>
-            <select class="form-control" id="planque" name="planque">
+            <select class="form-control" multiple id="planque" name="planque[]">
                 <option value=""></option>
                 <?php
                 for ($i = 0; $i < count($arrayIdPlanque); $i++) {

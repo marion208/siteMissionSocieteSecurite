@@ -5,7 +5,7 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $bdd->query('SELECT * FROM liste_nationalites');
+$reponse = $bdd->query('SELECT * FROM liste_nationalites ORDER BY designationNationalite');
 
 $arrayResult = [];
 while ($donnees = $reponse->fetch()) {
